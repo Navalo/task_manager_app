@@ -1,0 +1,38 @@
+<div class="container">
+    <h2>{{pageTitle}}</h2>
+  
+    <div class="top-section">
+      <button mat-button (click)="navigateToList()">Back to List</button>
+    </div>
+    <div class="form-container">
+      <form class="example-form" [formGroup]="taskForm">
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title" required>
+          @if (taskForm.get('title')?.hasError('required') && taskForm.get('title')?.touched) {
+          <mat-error>Title is required</mat-error>
+          }
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="description"></textarea>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Due Date</mat-label>
+          <input matInput formControlName="dueDate" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          @if (taskForm.get('dueDate')?.hasError('required') && taskForm.get('title')?.touched) {
+          <mat-error>Due Date is required</mat-error>
+          }
+        </mat-form-field>
+  
+        @if (!disableFormControls && !visibleUpdateButton) {
+          <button mat-raised-button color="primary" (click)="onSubmit()">Create Task</button>
+        }
+        @if (visibleUpdateButton) {
+          <button mat-raised-button color="primary" (click)="updateTask()">Update</button>
+        }
+      </form>
+    </div>
+  </div>
